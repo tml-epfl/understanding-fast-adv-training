@@ -35,9 +35,12 @@ Surprisingly, this phenomenon is not inherent to deep and overparametrized netwo
 observed even in a single-layer CNN. We analyze this setting both empirically and theoretically:
 <p align="center"><img src="img/cnn4_training_metrics.png" width="700"></p>
 <p align="center"><img src="img/cnn4_filters_plots.png" width="700"></p>
-<p align="center"><img src="img/cnn4_feature_maps_small.png" width="310"></p>
-<p align="center"><img src="img/lemma2_grad_alignment_at_init.png" width="700"></p>
+<p align="center"><img src="img/cnn4_feature_maps_small.png" width="295"></p>
 
+The remarkable property of FGSM training is that standard weight initialization schemes ensure high 
+gradient alignment at the beginning of the training. We observe this empirically both in shallow
+and deep networks, and formalize it for a single-layer CNN in the following lemma:
+<p align="center"><img src="img/lemma2_grad_alignment_at_init.png" width="700"></p>
 
 This observation and analysis motivates our regularizer that increases the gradient alignment and prevents catastrophic 
 overfitting even for large Linf-perturbations and reduce the gap to multi-step adversarial training:
