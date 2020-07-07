@@ -17,7 +17,7 @@ but can occur in a single-layer convolutional network with a few filters. In an 
 make the network highly non-linear locally, which is the main reason why FGSM training fails. Based on this observation, 
 we propose a new regularization method, GradAlign, that prevents catastrophic overfitting by explicitly maximizing the 
 gradient alignment inside the perturbation set and improves the quality of the FGSM solution. As a result, GradAlign 
-allows to successfully apply FGSM training also for larger ℓ∞-perturbations and reduce the gap to multi-step adversarial 
+allows to successfully apply FGSM training also for larger Linf-perturbations and reduce the gap to multi-step adversarial 
 training.
 
 
@@ -40,9 +40,9 @@ observed even in a single-layer CNN. We analyze this setting both empirically an
 
 
 This observation and analysis motivates our regularizer that increases the gradient alignment and prevents catastrophic 
-overfitting even for large Linf-perturbations:
+overfitting even for large Linf-perturbations and reduce the gap to multi-step adversarial training:
 <p align="center"><img src="img/grad_align_formula.png" width="500"></p>
-<p align="center"><img src="img/main_exps_curves.png" width="500"></p>
+<p align="center"><img src="img/main_exps_curves.png" width="700"></p>
 
 
 
