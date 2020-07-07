@@ -35,11 +35,12 @@ Surprisingly, this phenomenon is not inherent to deep and overparametrized netwo
 observed even in a single-layer CNN. We analyze this setting both empirically and theoretically:
 <p align="center"><img src="img/cnn4_training_metrics.png" width="700"></p>
 <p align="center"><img src="img/cnn4_filters_plots.png" width="700"></p>
-<p align="center"><img src="img/cnn4_feature_maps_small.png" width="250"></p>
+<p align="center"><img src="img/cnn4_feature_maps_small.png" width="310"></p>
+<p align="center"><img src="img/lemma2_grad_alignment_at_init.png" width="700"></p>
 
 
-This motivates our regularizer that increases the gradient alignment and prevents catastrophic overfitting even for 
-large Linf-perturbations:
+This observation and analysis motivates our regularizer that increases the gradient alignment and prevents catastrophic 
+overfitting even for large Linf-perturbations:
 <p align="center"><img src="img/grad_align_formula.png" width="500"></p>
 <p align="center"><img src="img/main_exps_curves.png" width="500"></p>
 
