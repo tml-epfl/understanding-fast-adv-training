@@ -45,12 +45,17 @@ The high gradient alignment at initialization implies that at least at the begin
 FGSM solves the inner maximization problem accurately. However, this may change during training if the 
 step size of FGSM is too large.
 
-The importance of gradient alignment motivates our regularizer that aims to increase the gradient alignment. 
+The importance of gradient alignment motivates our regularizer, **GradAlign**, that aims to increase the gradient alignment. 
 <p align="center"><img src="img/grad_align_formula.png" width="500"></p>
-It prevents catastrophic overfitting even for large Linf-perturbations and reduces the gap to multi-step adversarial training:
+**GradAlign** prevents catastrophic overfitting even for large Linf-perturbations and reduces the gap to multi-step adversarial training:
 <p align="center"><img src="img/main_exps_curves.png" width="700"></p>
 
 
 
-## Code 
+## Code
+
+### Code of GradAlign
+
+
+### Training code
 `python train.py`
