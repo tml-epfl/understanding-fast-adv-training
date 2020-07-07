@@ -37,14 +37,17 @@ observed even in a single-layer CNN. We analyze this setting both empirically an
 <p align="center"><img src="img/cnn4_filters_plots.png" width="700"></p>
 <p align="center"><img src="img/cnn4_feature_maps_small.png" width="295"></p>
 
-The remarkable property of FGSM training is that standard weight initialization schemes ensure high 
+The important property of FGSM training is that standard weight initialization schemes ensure high 
 gradient alignment at the beginning of the training. We observe this empirically both in shallow
 and deep networks, and formalize it for a single-layer CNN in the following lemma:
 <p align="center"><img src="img/lemma2_grad_alignment_at_init.png" width="700"></p>
+The high gradient alignment at initialization implies that at least at the beginning of the training,
+FGSM solves the inner maximization problem accurately. However, this may change during training if the 
+step size of FGSM is too large.
 
-This observation and analysis motivates our regularizer that increases the gradient alignment and prevents catastrophic 
-overfitting even for large Linf-perturbations and reduce the gap to multi-step adversarial training:
+The importance of gradient alignment motivates our regularizer that aims to increase the gradient alignment. 
 <p align="center"><img src="img/grad_align_formula.png" width="500"></p>
+It prevents catastrophic overfitting even for large Linf-perturbations and reduces the gap to multi-step adversarial training:
 <p align="center"><img src="img/main_exps_curves.png" width="700"></p>
 
 
