@@ -58,25 +58,43 @@ The importance of gradient alignment motivates our regularizer, **GradAlign**, t
 ## Code
 
 ### Code of GradAlign
+The following code snippet shows how to implement **GradAlign** (see `train.py` for more details):
+```python
+grad2 = get_input_grad(model, X, y, opt, eps, half_prec, delta_init=args.random_grad_reg, backprop=True)
+grads_nnz_idx = ((grad1**2).sum([1, 2, 3])**0.5 != 0) * ((grad2**2).sum([1, 2, 3])**0.5 != 0)
+grad1, grad2 = grad1[grads_nnz_idx], grad2[grads_nnz_idx]
+grad1_norms, grad2_norms = l2_norm_batch(grad1), l2_norm_batch(grad2)
+grad1_normalized = grad1 / grad1_norms[:, None, None, None]
+grad2_normalized = grad2 / grad2_norms[:, None, None, None]
+cos = torch.sum(grad1_normalized * grad2_normalized, (1, 2, 3))
+reg += args.grad_align_cos_lambda * (1.0 - cos.mean())
+
+```
 
 
 ### Training code
-The codebase is based on the codebase from [Wong et al, ICLR'20](https://arxiv.org/abs/2001.03994).
-All the required dependencies are specified in `Dockerfile`.
+This code of `train.py` is partially based on the code from [Wong et al, ICLR'20](https://arxiv.org/abs/2001.03994).
+All the required dependencies for our code are specified in `Dockerfile`.
+
+Training ResNet-18 using FGSM+GradAlign on CIFAR-10 can be done as follows:
+`python train.py --dataset=cifar10 --attack=fgsm --eps=8  --attack_init=zero --epochs=30 --grad_align_cos_lambda=0.2 --lr_max=0.30 --half_prec`
+
+Training CNN with 4 filters using FGSM (as reported in the paper) can be done via:
+`python train.py --model=cnn --attack=fgsm --eps=10 --attack_init=zero --n_layers=1 --n_filters_cnn=4  --epochs=30 --eval_iter_freq=50 --lr_max=0.003 --gpu=0`
+
 
 The results reported in Fig. 1, Fig. 7, Tables 4 and 5 for CIFAR-10 and SVHN can be obtained by running the following scripts:
 `sh/exps_diff_eps_cifar10.sh` and `sh/exps_diff_eps_svhn.sh` and varying the random seed from 0 to 4. 
 
+
 Note that the evaluation is performed automatically at the end of training. 
-In order to evaluate some model specifically, one can run `python eval.py` with appropriate parameters.
-
-
-For ImageNet experiments see the .sh files `fgsm_eps6.sh`, `fgsmga_eps6_lambda0.1.sh`, `fgsmrs_eps6.sh`.
-`python train.py`
+In order to evaluate some model specifically, one can run the evaluation script
+`python eval.py --eps=8 --n_eval=1000 --model='<model name>'`.
 
 
 ### Models
-Models will be uploaded soon.
+GradAlign models will be uploaded soon.
 
-The models can be evaluated via `python eval.py --eps=8 --n_eval=1000 --model='2020-03-19 23:51:05 dataset=cifar10 model=resnet18 eps=8.0 attack=pgd attack_init=zero fgsm_alpha=1.25 epochs=30 pgd_train_n_iters=7 grad_align_cos_lambda=0.0 seed=1 epoch=30'`
+The models can be evaluated via 
+`python eval.py --eps=8 --n_eval=1000 --model='<model name>'`
 
