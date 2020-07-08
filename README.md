@@ -68,7 +68,6 @@ grad1_normalized = grad1 / grad1_norms[:, None, None, None]
 grad2_normalized = grad2 / grad2_norms[:, None, None, None]
 cos = torch.sum(grad1_normalized * grad2_normalized, (1, 2, 3))
 reg += args.grad_align_cos_lambda * (1.0 - cos.mean())
-
 ```
 
 
@@ -77,10 +76,10 @@ This code of `train.py` is partially based on the code from [Wong et al, ICLR'20
 All the required dependencies for our code are specified in `Dockerfile`.
 
 Training ResNet-18 using FGSM+GradAlign on CIFAR-10 can be done as follows:
-`python train.py --dataset=cifar10 --attack=fgsm --eps=8  --attack_init=zero --epochs=30 --grad_align_cos_lambda=0.2 --lr_max=0.30 --half_prec`
+`python train.py --dataset=cifar10 --attack=fgsm --eps=8  --attack_init=zero --epochs=30 --grad_align_cos_lambda=0.2 --lr_max=0.30 --half_prec --n_final_eval=1000`
 
 Training CNN with 4 filters using FGSM (as reported in the paper) can be done via:
-`python train.py --model=cnn --attack=fgsm --eps=10 --attack_init=zero --n_layers=1 --n_filters_cnn=4  --epochs=30 --eval_iter_freq=50 --lr_max=0.003 --gpu=0`
+`python train.py --model=cnn --attack=fgsm --eps=10 --attack_init=zero --n_layers=1 --n_filters_cnn=4  --epochs=30 --eval_iter_freq=50 --lr_max=0.003 --gpu=0 --n_final_eval=1000`
 
 
 The results reported in Fig. 1, Fig. 7, Tables 4 and 5 for CIFAR-10 and SVHN can be obtained by running the following scripts:
