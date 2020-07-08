@@ -4,6 +4,8 @@
 
 **Paper:** [https://arxiv.org/abs/2007.02617](https://arxiv.org/abs/2007.02617)
 
+**A short version is accepted to [ICML'20 UDL workshop](https://sites.google.com/view/udlworkshop2020/)**
+
 
 
 ## Abstract
@@ -47,6 +49,7 @@ step size of FGSM is too large.
 
 The importance of gradient alignment motivates our regularizer, **GradAlign**, that aims to increase the gradient alignment. 
 <p align="center"><img src="img/grad_align_formula.png" width="500"></p>
+
 **GradAlign** prevents catastrophic overfitting even for large Linf-perturbations and reduces the gap to multi-step adversarial training:
 <p align="center"><img src="img/main_exps_curves.png" width="700"></p>
 
@@ -58,4 +61,22 @@ The importance of gradient alignment motivates our regularizer, **GradAlign**, t
 
 
 ### Training code
+The codebase is based on the codebase from [Wong et al, ICLR'20](https://arxiv.org/abs/2001.03994).
+All the required dependencies are specified in `Dockerfile`.
+
+The results reported in Fig. 1, Fig. 7, Tables 4 and 5 for CIFAR-10 and SVHN can be obtained by running the following scripts:
+`sh/exps_diff_eps_cifar10.sh` and `sh/exps_diff_eps_svhn.sh` and varying the random seed from 0 to 4. 
+
+Note that the evaluation is performed automatically at the end of training. 
+In order to evaluate some model specifically, one can run `python eval.py` with appropriate parameters.
+
+
+For ImageNet experiments see the .sh files `fgsm_eps6.sh`, `fgsmga_eps6_lambda0.1.sh`, `fgsmrs_eps6.sh`.
 `python train.py`
+
+
+### Models
+Models will be uploaded soon.
+
+The models can be evaluated via `python eval.py --eps=8 --n_eval=1000 --model='2020-03-19 23:51:05 dataset=cifar10 model=resnet18 eps=8.0 attack=pgd attack_init=zero fgsm_alpha=1.25 epochs=30 pgd_train_n_iters=7 grad_align_cos_lambda=0.0 seed=1 epoch=30'`
+
