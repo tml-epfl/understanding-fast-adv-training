@@ -38,7 +38,6 @@ def get_args():
     parser.add_argument('--minibatch_replay', default=1, type=int, help='minibatch replay as in AT for Free (default=1 is usual training)')
     parser.add_argument('--weight_decay', default=5e-4, type=float, help='weight decay aka l2 regularization')
     parser.add_argument('--attack_init', default='random', choices=['zero', 'random'])
-    parser.add_argument('--random_grad_reg', default='random_uniform', choices=['random_uniform', 'random_corner'], help='at which point to take the 2nd grad (and also the 1st if enabled)')
     parser.add_argument('--fname', default='plain_cifar10', type=str)
     parser.add_argument('--seed', default=0, type=int)
     parser.add_argument('--gpu', default=0, type=int)
@@ -191,9 +190,9 @@ def main():
 
             reg = torch.zeros(1).cuda()[0]  # for .item() to run correctly
             if args.grad_align_cos_lambda != 0.0:
-                grad2 = get_input_grad(model, X, y, opt, eps, half_prec, delta_init=args.random_grad_reg, backprop=True)
-                grads_nnz_idx = ((grad1**2).sum([1, 2, 3])**0.5 != 0) * ((grad2**2).sum([1, 2, 3])**0.5 != 0)
-                grad1, grad2 = grad1[grads_nnz_idx], grad2[grads_nnz_idx]
+                grad2 = get_input_grad(model, X, y, opt, eps, half_prec, delta_init='random_uniform', backprop=True)
+                grads_nnz_idx = ((grad**2).sum([1, 2, 3])**0.5 != 0) * ((grad2**2).sum([1, 2, 3])**0.5 != 0)
+                grad1, grad2 = grad[grads_nnz_idx], grad2[grads_nnz_idx]
                 grad1_norms, grad2_norms = l2_norm_batch(grad1), l2_norm_batch(grad2)
                 grad1_normalized = grad1 / grad1_norms[:, None, None, None]
                 grad2_normalized = grad2 / grad2_norms[:, None, None, None]

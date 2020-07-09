@@ -60,7 +60,8 @@ The importance of gradient alignment motivates our regularizer, **GradAlign**, t
 ### Code of GradAlign
 The following code snippet shows how to implement **GradAlign** (see `train.py` for more details):
 ```python
-grad2 = get_input_grad(model, X, y, opt, eps, half_prec, delta_init=args.random_grad_reg, backprop=True)
+grad1 = get_input_grad(model, X, y, opt, eps, half_prec, delta_init='none', backprop=True)
+grad2 = get_input_grad(model, X, y, opt, eps, half_prec, delta_init='random_uniform', backprop=True)
 grads_nnz_idx = ((grad1**2).sum([1, 2, 3])**0.5 != 0) * ((grad2**2).sum([1, 2, 3])**0.5 != 0)
 grad1, grad2 = grad1[grads_nnz_idx], grad2[grads_nnz_idx]
 grad1_norms, grad2_norms = l2_norm_batch(grad1), l2_norm_batch(grad2)
