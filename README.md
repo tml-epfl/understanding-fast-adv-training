@@ -58,17 +58,13 @@ The importance of gradient alignment motivates our regularizer, **GradAlign**, t
 ## Code
 
 ### Code of GradAlign
-The following code snippet shows how to implement **GradAlign** (see `train.py` for more details):
+The following code snippet shows a concise implementation of **GradAlign** (see `train.py` for more details):
 ```python
-grad1 = get_input_grad(model, X, y, opt, eps, half_prec, delta_init='none', backprop=True)
-grad2 = get_input_grad(model, X, y, opt, eps, half_prec, delta_init='random_uniform', backprop=True)
-grads_nnz_idx = ((grad1**2).sum([1, 2, 3])**0.5 != 0) * ((grad2**2).sum([1, 2, 3])**0.5 != 0)
-grad1, grad2 = grad1[grads_nnz_idx], grad2[grads_nnz_idx]
-grad1_norms, grad2_norms = l2_norm_batch(grad1), l2_norm_batch(grad2)
-grad1_normalized = grad1 / grad1_norms[:, None, None, None]
-grad2_normalized = grad2 / grad2_norms[:, None, None, None]
-cos = torch.sum(grad1_normalized * grad2_normalized, (1, 2, 3))
-reg += args.grad_align_cos_lambda * (1.0 - cos.mean())
+grad1 = utils.get_input_grad(model, X, y, opt, eps, half_prec, delta_init='none', backprop=True)
+grad2 = utils.get_input_grad(model, X, y, opt, eps, half_prec, delta_init='random_uniform', backprop=True)
+grad1, grad2 = grad1.reshape(len(grad1), -1), grad2.reshape(len(grad2), -1)
+cos = torch.nn.functional.cosine_similarity(grad1, grad2, 1)
+reg = grad_align_lambda * (1.0 - cos.mean())
 ```
 
 
