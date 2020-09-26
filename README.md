@@ -4,7 +4,7 @@
 
 **Paper:** [https://arxiv.org/abs/2007.02617](https://arxiv.org/abs/2007.02617)
 
-**A short version is accepted to [ICML'20 UDL workshop](https://sites.google.com/view/udlworkshop2020/)**
+**NeurIPS 2020**
 
 
 
