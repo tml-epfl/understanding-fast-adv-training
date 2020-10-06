@@ -42,7 +42,7 @@ def get_args():
     parser.add_argument('--seed', default=0, type=int)
     parser.add_argument('--gpu', default=0, type=int)
     parser.add_argument('--debug', action='store_true')
-    parser.add_argument('--half_prec', action='store_true', help='if enabled, runs everything as half precision [not recommended]')
+    parser.add_argument('--half_prec', action='store_true', help='if enabled, runs everything as half precision')
     parser.add_argument('--grad_align_cos_lambda', default=0.0, type=float, help='coefficient of the cosine gradient alignment regularizer')
     parser.add_argument('--eval_early_stopped_model', action='store_true', help='whether to evaluate the model obtained via early stopping')
     parser.add_argument('--eval_iter_freq', default=200, type=int, help='how often to evaluate test stats')
