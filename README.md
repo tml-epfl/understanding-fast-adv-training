@@ -94,3 +94,13 @@ GradAlign models will be uploaded soon.
 The models can be evaluated via 
 `python eval.py --eps=8 --n_eval=1000 --model='<model name>'`
 
+
+### Citation
+```
+@inproceedings{andriushchenko2020understanding,
+  title={Understanding and Improving Fast Adversarial Training},
+  author={Andriushchenko, Maksym and Flammarion, Nicolas},
+  booktitle={NeurIPS},
+  year={2020}
+}
+```
