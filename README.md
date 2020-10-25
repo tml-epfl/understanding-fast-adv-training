@@ -89,9 +89,9 @@ In order to evaluate some model specifically, one can run the evaluation script
 
 
 ### Models
-GradAlign models will be uploaded soon.
+GradAlign models for eps in {8/255, 16/255} for CIFAR-10 and for eps in {8/255, 12/255} for SVHN are hosted [here](https://drive.google.com/drive/folders/1I8nwuslQMqRPcYyrxM1NOgkMYzf5BggU?usp=sharing). The model definition of PreAct-ResNet-18 can be found [here](https://github.com/tml-epfl/understanding-fast-adv-training/blob/master/models.py#L197). Please contact us if you need the models trained with other epsilons.
 
-The models can be evaluated via 
+The models can be evaluated using PGD with 50 iterations and 10 restarts via 
 `python eval.py --eps=8 --n_eval=1000 --model='<model name>'`
 
 
