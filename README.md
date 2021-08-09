@@ -60,12 +60,13 @@ The importance of gradient alignment motivates our regularizer, **GradAlign**, t
 ### Code of GradAlign
 The following code snippet shows a concise implementation of **GradAlign** (see `train.py` for more details):
 ```python
-grad1 = utils.get_input_grad(model, X, y, opt, eps, half_prec, delta_init='none', backprop=True)
+grad1 = utils.get_input_grad(model, X, y, opt, eps, half_prec, delta_init='none', backprop=False)
 grad2 = utils.get_input_grad(model, X, y, opt, eps, half_prec, delta_init='random_uniform', backprop=True)
 grad1, grad2 = grad1.reshape(len(grad1), -1), grad2.reshape(len(grad2), -1)
 cos = torch.nn.functional.cosine_similarity(grad1, grad2, 1)
 reg = grad_align_lambda * (1.0 - cos.mean())
 ```
+Note that we can use `backprop=True` on both gradients `grad1` and `grad2` but, based on our experiments, this doesn't make a substantial difference. Thus, to save computations, one can just use `backprop=True` on one of the two gradients.
 
 
 ### Training code
