@@ -48,7 +48,7 @@ np.random.seed(args.seed)
 torch.manual_seed(args.seed)
 torch.cuda.manual_seed(args.seed)
 
-model = models.get_model(args.model, n_cls, half_prec, data.shapes_dict[args.dataset], args.n_filters_cnn, args.n_hidden_fc)
+model = models.get_model(args.model, n_cls, half_prec, data.shapes_dict[args.dataset], args.n_filters_cnn)
 model = model.cuda()
 model_dict = torch.load('models/{}.pth'.format(args.model_path))
 if args.early_stopped_model:
