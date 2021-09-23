@@ -6,6 +6,8 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from torch import nn
+from contextlib import contextmanager
+
 
 
 logger = logging.getLogger(__name__)
@@ -350,3 +352,10 @@ def backward(loss, opt, half_prec):
             scaled_loss.backward()
     else:
         loss.backward()
+
+        
+@contextmanager
+def nullcontext(enter_result=None):
+    yield enter_result
+    
+    
